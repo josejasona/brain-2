@@ -1,7 +1,7 @@
 export default function AppBar() {
 
 return (
-   <header className="flex items-center justify-between p-5">
+   <header className="flex items-center justify-between p-5 shadow-xl">
       <p className="text-2xl font-extrabold"> Brain-2</p>
          <svg
             xmlns="http://www.w3.org/2000/svg"

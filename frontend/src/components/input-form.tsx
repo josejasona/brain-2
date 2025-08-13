@@ -39,7 +39,7 @@ export function InputForm() {
     console.log("OnSubmit Triggered");
     console.log(data.username)
     console.log(data.password)
-    router.push("/")
+    router.push("/main-page")
     }
   
 
