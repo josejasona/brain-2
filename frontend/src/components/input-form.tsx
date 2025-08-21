@@ -21,26 +21,40 @@ const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
+  email: z.string().min(5, { 
+    message: "Enter a valid email",
+    }),
   password: z.string().min(8, {
     message: " Password must be at least 8 characters",
 }),
 })
 
 export function InputForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: "",
     },
   })
-  const router = useRouter();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+
+
+  const onSubmit = async(data: z.infer<typeof FormSchema>)  => {
     console.log("OnSubmit Triggered");
-    console.log(data.username)
-    console.log(data.password)
-    router.push("/main-page")
+    // Send this data to the api route
+    const res = await fetch("/api/create-account" , {
+       method: 'POST',
+       headers: {"Content-Type": "application/json" },
+       body : JSON.stringify(data),});
+       
+
+    const resData = await res.json();
+       if(res.ok) {
+          router.push("/main-page")
+       } else { console.log("Data failed"); }
     }
+  
   
 
   return (
@@ -57,6 +71,22 @@ export function InputForm() {
               </FormControl>
               <FormDescription>
                 This is your login credential.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Jdoe123@gmail.com" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is the email you will use for verification.
               </FormDescription>
               <FormMessage />
             </FormItem>
