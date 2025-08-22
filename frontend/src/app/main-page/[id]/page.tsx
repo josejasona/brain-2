@@ -1,11 +1,15 @@
 "use client"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { use } from "react"
 
-export default function MainPage() {
+
+export default function MainPage({ params,}: { params: Promise<{id : string}> }) {
 const [query, setQuery] = useState("")
+const { id } = use(params);
 const handleSubmit = async () => {
    console.log(query)
+   console.log(id)
 }
 return (
 <>

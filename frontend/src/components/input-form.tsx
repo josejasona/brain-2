@@ -51,7 +51,8 @@ export function InputForm() {
 
     const resData = await res.json();
        if(res.ok) {
-          router.push("/main-page")
+          console.log(resData.user.id);
+          router.push(`main-page/${resData.user.id}`);
        } else { console.log("Data failed"); }
     }
   

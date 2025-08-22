@@ -3,7 +3,7 @@ import { client } from "@/lib/db.ts";
 
 export async function POST(req: Request) {
    try { 
-       const insert = "INSERT INTO Users(username, email, password) VALUES($1, $2, $3) RETURNING *"
+       const insert = "INSERT INTO Users(username, email, password) VALUES($1, $2, $3) RETURNING id"
        const { username , email, password } = await req.json();
 
 
